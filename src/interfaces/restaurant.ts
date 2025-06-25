@@ -6,3 +6,11 @@ export interface IRestaurant{
     currentOffer: string;
     rating:number;
 }
+export interface  IMenuItems{
+_id: string;
+restaurantId: string;
+name: string;
+image: string;
+price: number;
+description: string;
+}
