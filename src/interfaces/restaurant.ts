@@ -14,3 +14,16 @@ image: string;
 price: number;
 description: string;
 }
+export interface ICart{
+    _id? : string;
+    restaurantId : string;
+    items : ICartItem[];
+    totalPrice : number;
+}
+export interface ICartItem{
+    itemId: string;
+    price : number;
+    name : string;
+    quantity : number;
+    totalItemPrice : number;
+}

@@ -32,6 +32,16 @@
             color: #968f8f;
             margin-top: 5px;
         }
+        .price_detail{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 10px;
+            .price{
+                font-size: 20px;
+                font-weight: 600;
+                color: #555555;
+            }
         .button{
             width: max-content;
             padding: 7px 10px;
@@ -39,8 +49,8 @@
             font-weight: 500;
             font-size: 13px;
             border-radius: 5px;
-            margin-top: 10px;
             color: #fff;
         }
+    }
 }
 }

@@ -4,8 +4,9 @@ import { IonContent, IonPage } from "@ionic/react";
 import MenuCard from "../components/menuComponents/MenuCard";
 import { useHistory, useParams } from "react-router";
 import { getItemsByRestaurantId } from "../services/api";
-import { IMenuItems } from "../interfaces/restaurant";
+import { ICart, IMenuItems } from "../interfaces/restaurant";
 const RestaurantMenuScreen: React.FC = () => {
+  const [restaurantCart,setRestaurantCart] = useState<ICart>();
   const[allRestaurantMenuItems,setAllRestaurantMenuItems]=useState<IMenuItems[]>([]);
 const {restaurantId} = useParams<{restaurantId:string}>();
 const history = useHistory();
@@ -16,6 +17,41 @@ setAllRestaurantMenuItems(response);
   console.log(error)
 })
 },[])
+useEffect(()=> {
+        console.log("restuarantCart" , restaurantCart)
+    },[restaurantCart])
+const handleAddItemsInCart = (menuItem:IMenuItems) => {
+  console.log(menuItem)
+  let newCart : ICart;
+  if (restaurantCart !== undefined){
+    newCart = restaurantCart;
+  }
+  else {
+    newCart ={
+      restaurantId : restaurantId,
+      items:[],
+      totalPrice : 0,
+    }
+    }
+    const isItemInclude = newCart.items.find((item)=>{
+      return item.itemId === menuItem._id;
+
+    })
+    if (isItemInclude){
+      return;
+    }
+    else {
+      const newCartItem = {
+        itemId : menuItem._id,
+        price : menuItem.price,
+        name: menuItem.name,
+        quantity : 1,
+        totalItemPrice :menuItem.price,
+      }
+      newCart.items.push(newCartItem);
+      setRestaurantCart(newCart);
+    }
+  }
   return (
     <IonPage>
       <IonContent  fullscreen>
@@ -31,14 +67,16 @@ setAllRestaurantMenuItems(response);
             <div className="menu_card_section">
                 {allRestaurantMenuItems && allRestaurantMenuItems.map((menuItems,menuItemsIndex) => {
                 return(<div className="menu_list" key ={menuItemsIndex}>
-                  <MenuCard itemData = {menuItems}/>
+                  <MenuCard 
+                  addItem = {handleAddItemsInCart}
+                  itemData = {menuItems}/>
                   </div>)})}
             </div>
           </div>
         </div>
       </IonContent>
     </IonPage>
-  );
-};
+  )
+}
 
 export default RestaurantMenuScreen;
