@@ -8,9 +8,12 @@
         padding: 15px;
         display: flex;
         width: 100%;
-        align-items: center;
+        justify-content: center;
+         color: #cd5721;
+         gap: 10px;
+         flex-direction: column;
         .title{
-            color: #e0e0e1;
+           color: #fff;
             font-size: 15px;
         }
     }
@@ -28,6 +31,11 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            .menu_list{
+                width: 100%;
+             }
         }
     }
 }
