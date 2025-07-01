@@ -9,6 +9,17 @@ export const getAllRestaurant = async():Promise <IRestaurant[]> =>{
     }
 )
 }
+export const getRestauarantById = async(id:string):Promise <IRestaurant> => {
+    return await new Promise((resolve, reject) => {
+        const filteredRestaurant = restaurantList.find((restaurantList)=>{
+            return restaurantList._id === id;
+        })
+        if(filteredRestaurant){
+            resolve(filteredRestaurant)
+        }
+        reject(null)
+    });
+};
 export const getItemsByRestaurantId = async(restaurantId:string):Promise <IMenuItems[]> =>{
     return await new Promise((resolve,reject) => {
         const filteredMenuItems = menuItemsList.filter((item)=>{

@@ -4,8 +4,10 @@ import { IMenuItems } from '../../interfaces/restaurant'
 interface ItemsCardProps{
     itemData:IMenuItems,
     addItem:(data : IMenuItems) => void
+    isIncluded : boolean
+    removeItem:(data : string)=>void;
 }
-const MenuCard:React.FC<ItemsCardProps> = ({itemData,addItem}) => {
+const MenuCard:React.FC<ItemsCardProps> = ({itemData,addItem,isIncluded,removeItem}) => {
   return (
     <div className='menu_card'>
         <div className="image_section">
@@ -23,10 +25,17 @@ const MenuCard:React.FC<ItemsCardProps> = ({itemData,addItem}) => {
                 <div className="price">
                     ₹ {itemData.price}
                 </div>
-                <div className="button" onClick={()=>{
+                {isIncluded ? (
+                     <div className="button" onClick={()=>{
+                    removeItem(itemData._id);}}>
+                    Remove
+                </div>
+                ) : (
+                    <div className="button" onClick={()=>{
                     addItem(itemData);}}>
-                    Add Items
-                    </div>
+                    Add Item
+                </div>
+                 )}     
             </div>
         </div>
 
