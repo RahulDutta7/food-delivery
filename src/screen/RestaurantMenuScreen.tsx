@@ -13,6 +13,7 @@ const RestaurantMenuScreen: React.FC = () => {
   const [restaurantData, setRestaurantData] = useState<IRestaurant>();
   const { restaurantId } = useParams<{ restaurantId: string }>();
   const history = useHistory();
+
   useEffect(() => {
     getRestaurantById(restaurantId)
       .then((response) => {
@@ -29,6 +30,15 @@ const RestaurantMenuScreen: React.FC = () => {
       .catch((error) => {
         console.log(error);
       });
+  }, []);
+
+  useEffect(() => {
+    const cartString = localStorage.getItem("restaurantCart");
+
+    if (cartString && cartString !== "undefined" && cartString !== "null") {
+      const cartData: ICart = JSON.parse(cartString);
+      setRestaurantCart(cartData);
+    }
   }, []);
 
   useEffect(() => {
