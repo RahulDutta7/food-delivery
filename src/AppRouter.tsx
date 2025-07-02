@@ -4,6 +4,7 @@ import React from 'react'
 import { Redirect, Route } from 'react-router-dom'
 import HomeScreen from './screen/HomeScreen'
 import RestaurantMenuScreen from './screen/RestaurantMenuScreen'
+import CartScreen from './screen/CartScreen'
 
 const AppRouter = () => {
   return (
@@ -18,6 +19,9 @@ const AppRouter = () => {
         </Route>
         <Route  exact path="/restaurant-menu/:restaurantId">
         <RestaurantMenuScreen/>
+        </Route>
+         <Route  exact path="/cart-screen">
+        <CartScreen/>
         </Route>
       </IonRouterOutlet>
     </IonReactRouter>
