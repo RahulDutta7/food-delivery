@@ -70,6 +70,8 @@ const RestaurantMenuScreen: React.FC = () => {
         name: menuItem.name,
         quantity: 1,
         totalItemPrice: menuItem.price,
+        itemImage: menuItem.image,
+        description: menuItem.description,
       };
       newCart.items.push(newCartItem);
 

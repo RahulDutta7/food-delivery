@@ -55,16 +55,15 @@ const CartScreen: React.FC = () => {
             </div>
 
             <div className="cart_item_section">
-              <CartItem />
-              <CartItem />
-              <CartItem />
-              <CartItem />
-              <CartItem />
-              <CartItem />
-              <CartItem />
-              <CartItem />
-              <CartItem />
-              <CartItem />
+              {restaurantCart &&
+                restaurantCart.items?.map((cartItem, itemIndex) => {
+                  return (
+                    <div key={itemIndex}>
+                      <CartItem cartItemData={cartItem} />
+                    </div>
+                  );
+                })}
+             
             </div>
             <div className="footer_section">
               <div className="total_section">

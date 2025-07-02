@@ -1,24 +1,28 @@
 import React from "react";
 import "./CartItem.scss";
+import { ICartItem } from "../../interfaces/restaurant";
 
-const CartItem: React.FC = () => {
+interface ICartItemProps {
+  cartItemData: ICartItem;
+}
+const CartItem: React.FC<ICartItemProps> = ({ cartItemData }) => {
   return (
     <>
       <div className="cart_item">
         <img
-          src="https://images.unsplash.com/photo-1550547660-d9450f859349?w=400&h=250&fit=crop"
+          src={cartItemData.itemImage}
           alt="Margherita"
           className="item_image"
         />
         <div className="item_info">
-          <h3 className="item_name">Margherita</h3>
-          <p className="item_desc">Tomato, mozzarella</p>
+          <h3 className="item_name">{cartItemData.name}</h3>
+          <p className="item_desc">{cartItemData.description}</p>
         </div>
         <div className="item_controls">
-          <span>₹ 10.99</span>
+          <span>₹ {cartItemData.totalItemPrice}</span>
           <div className="quantity_buttons">
             <button>-</button>
-            <span>1</span>
+            <span>{cartItemData.quantity}</span>
             <button>+</button>
           </div>
         </div>

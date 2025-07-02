@@ -21,6 +21,8 @@ export interface ICart{
     totalPrice : number;
 }
 export interface ICartItem{
+    itemImage:string;
+    description:string;
     itemId: string;
     price : number;
     name : string;
