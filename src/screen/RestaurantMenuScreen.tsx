@@ -90,15 +90,19 @@ const RestaurantMenuScreen: React.FC = () => {
         return cartItem.itemId !== menuItemId;
       });
 
-      setRestaurantCart((prev) => {
-        if (!prev) {
-          return prev;
-        }
-        return {
-          ...prev,
-          items: newCartItems,
-        };
-      });
+      if (newCartItems.length) {
+        setRestaurantCart((prev) => {
+          if (!prev) {
+            return prev;
+          }
+          return {
+            ...prev,
+            items: newCartItems,
+          };
+        });
+      } else {
+        setRestaurantCart(null);
+      }
     }
   };
   return (
@@ -115,14 +119,16 @@ const RestaurantMenuScreen: React.FC = () => {
               back
             </div>
             <div className="title">{restaurantData?.name}</div>
-            <div
-              className="back_button"
-              onClick={() => {
-                history.push("/cart-screen");
-              }}
-            >
-              Go to Cart
-            </div>
+            {restaurantCart !== null && (
+              <div
+                className="back_button"
+                onClick={() => {
+                  history.push("/cart-screen");
+                }}
+              >
+                Go to Cart
+              </div>
+            )}
           </div>
           <div className="menu_body">
             <div className="menu_card_section">
