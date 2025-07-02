@@ -21,12 +21,10 @@ const CartScreen: React.FC = () => {
       try {
         const cartData: ICart = JSON.parse(cartString);
         setRestaurantCart(cartData);
-        console.log("cartData", cartData);
 
         getRestaurantById(cartData.restaurantId)
           .then((response) => {
             setRestaurantData(response);
-            console.log("response", response);
           })
           .catch((error) => {
             console.error("Failed to fetch restaurant:", error);
@@ -71,8 +69,14 @@ const CartScreen: React.FC = () => {
       (acc, item) => acc + item.totalItemPrice,
       0
     );
-    setRestaurantCart(newCart);
-    localStorage.setItem("restaurantCart", JSON.stringify(newCart));
+
+    if (newCart.items.length <= 0) {
+      history.goBack();
+      localStorage.removeItem("restaurantCart");
+    } else {
+      setRestaurantCart(newCart);
+      localStorage.setItem("restaurantCart", JSON.stringify(newCart));
+    }
   };
 
   return (

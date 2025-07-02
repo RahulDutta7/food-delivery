@@ -2,17 +2,18 @@ import React, { useEffect, useState } from "react";
 import "./RestaurantMenuScreen.scss";
 import { IonContent, IonPage } from "@ionic/react";
 import MenuCard from "../components/menuComponents/MenuCard";
-import { useHistory, useParams } from "react-router";
+import { useHistory, useLocation, useParams } from "react-router";
 import { getItemsByRestaurantId, getRestaurantById } from "../services/api";
 import { ICart, IMenuItems, IRestaurant } from "../interfaces/restaurant";
 const RestaurantMenuScreen: React.FC = () => {
-  const [restaurantCart, setRestaurantCart] = useState<ICart>();
+  const [restaurantCart, setRestaurantCart] = useState<ICart | null>(null);
   const [allRestaurantMenuItems, setAllRestaurantMenuItems] = useState<
     IMenuItems[]
   >([]);
   const [restaurantData, setRestaurantData] = useState<IRestaurant>();
   const { restaurantId } = useParams<{ restaurantId: string }>();
   const history = useHistory();
+  const location = useLocation();
 
   useEffect(() => {
     getRestaurantById(restaurantId)
@@ -38,18 +39,18 @@ const RestaurantMenuScreen: React.FC = () => {
     if (cartString && cartString !== "undefined" && cartString !== "null") {
       const cartData: ICart = JSON.parse(cartString);
       setRestaurantCart(cartData);
+    } else {
+      setRestaurantCart(null);
     }
-  }, []);
+  }, [location.key]);
 
   useEffect(() => {
-    console.log("restuarantCart", restaurantCart);
     localStorage.setItem("restaurantCart", JSON.stringify(restaurantCart));
   }, [restaurantCart]);
 
   const handleAddItemsInCart = (menuItem: IMenuItems) => {
-    console.log(menuItem);
     let newCart: ICart;
-    if (restaurantCart !== undefined) {
+    if (restaurantCart !== undefined && restaurantCart !== null) {
       newCart = { ...restaurantCart, items: [...restaurantCart.items] };
     } else {
       newCart = {
