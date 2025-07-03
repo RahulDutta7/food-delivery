@@ -36,11 +36,28 @@ const RestaurantMenuScreen: React.FC = () => {
   useEffect(() => {
     const cartString = localStorage.getItem("restaurantCart");
 
+    // if (cartString && cartString !== "undefined" && cartString !== "null") {
+    //   const cartData: ICart = JSON.parse(cartString);
+    //   setRestaurantCart(cartData);
+    // } else {
+    //   setRestaurantCart(null);
+    // }
     if (cartString && cartString !== "undefined" && cartString !== "null") {
-      const cartData: ICart = JSON.parse(cartString);
-      setRestaurantCart(cartData);
-    } else {
-      setRestaurantCart(null);
+      try {
+        const cartData: ICart = JSON.parse(cartString);
+        setRestaurantCart(cartData);
+
+        getRestaurantById(cartData.restaurantId)
+          .then((response) => {
+            setRestaurantData(response);
+          })
+          .catch((error) => {
+            console.error("Failed to fetch restaurant:", error);
+          });
+      } catch (error) {
+        console.error("Invalid cart data in localStorage:", error);
+        setRestaurantCart(null);
+      }
     }
   }, [location.key]);
 
