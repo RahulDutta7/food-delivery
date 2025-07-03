@@ -1,6 +1,8 @@
 import React from "react";
 import "./HomeBanner.scss";
+import { useHistory } from "react-router";
 const HomeBanner: React.FC = () => {
+  const history = useHistory();
   return (
     <>
       <div className="home_banner">
@@ -18,7 +20,7 @@ const HomeBanner: React.FC = () => {
             </div>
           </div>
           <div className="right_content">
-            <div className="cart_button">Your Profile</div>
+            <div className="cart_button" onClick={()=>{history.push("/cart-screen")}}>Go To Cart</div>
           </div>
         </div>
       </div>
