@@ -46,14 +46,6 @@ const RestaurantMenuScreen: React.FC = () => {
       try {
         const cartData: ICart = JSON.parse(cartString);
         setRestaurantCart(cartData);
-
-        getRestaurantById(cartData.restaurantId)
-          .then((response) => {
-            setRestaurantData(response);
-          })
-          .catch((error) => {
-            console.error("Failed to fetch restaurant:", error);
-          });
       } catch (error) {
         console.error("Invalid cart data in localStorage:", error);
         setRestaurantCart(null);
