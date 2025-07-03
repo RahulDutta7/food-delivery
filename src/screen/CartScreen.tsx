@@ -20,6 +20,7 @@ const CartScreen: React.FC = () => {
     if (cartString && cartString !== "undefined" && cartString !== "null") {
       try {
         const cartData: ICart = JSON.parse(cartString);
+
         setRestaurantCart(cartData);
 
         getRestaurantById(cartData.restaurantId)
@@ -31,7 +32,10 @@ const CartScreen: React.FC = () => {
           });
       } catch (error) {
         console.error("Invalid cart data in localStorage:", error);
+        history.goBack();
       }
+    } else {
+      history.goBack();
     }
   }, [location.key]);
 
