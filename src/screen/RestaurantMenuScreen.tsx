@@ -48,6 +48,8 @@ const RestaurantMenuScreen: React.FC = () => {
 
         if (cartData.restaurantId === restaurantId) {
           setRestaurantCart(cartData);
+        } else {
+          setRestaurantCart(null);
         }
       } catch (error) {
         console.error("Invalid cart data in localStorage:", error);
