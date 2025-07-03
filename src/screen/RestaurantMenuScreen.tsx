@@ -67,6 +67,7 @@ const RestaurantMenuScreen: React.FC = () => {
     if (restaurantCart !== undefined && restaurantCart !== null) {
       newCart = { ...restaurantCart, items: [...restaurantCart.items] };
     } else {
+      localStorage.removeItem("restaurantCart");
       newCart = {
         restaurantId: restaurantId,
         items: [],
