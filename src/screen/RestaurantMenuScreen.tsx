@@ -55,6 +55,8 @@ const RestaurantMenuScreen: React.FC = () => {
         console.error("Invalid cart data in localStorage:", error);
         setRestaurantCart(null);
       }
+    } else {
+      setRestaurantCart(null);
     }
   }, [location.key]);
 
